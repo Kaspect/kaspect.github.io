@@ -1,0 +1,128 @@
+html {
+    background-color: #f4f5fb !important;
+    color: #283346 !important;
+}
+#documenter_content {
+    color: #283346;
+	font-size: 16px;
+}
+#documenter_content h5 {
+    font-size: 20px;
+}
+#documenter_content p {
+	font-size: 16px;
+    font-family: 'Open Sans', sans-serif;
+}
+#documenter_sidebar {
+    font-family: 'Open Sans', sans-serif;
+}
+#documenter_sidebar #documenter_nav a {
+    font-size: 14px;
+    text-align: left;
+    font-weight: normal;
+    padding: 6px 15px 7px 15px;
+}
+#documenter_sidebar #documenter_copyright a {
+    font-size: 10px;
+    font-weight: normal;
+}
+#documenter_sidebar ul li ul li a {
+	font-size: 13px;
+	padding: 4px 25px 5px 15px;
+	text-align: left;
+}
+pre {
+    overflow: auto;
+}
+hr.notop {
+    border: none;
+    border-top: 1px solid #e0e4f6;
+}
+
+#documenter_content h1 {
+    font-weight: 700;
+    font-family: 'Open Sans', sans-serif;
+    line-height: 150%;
+    color: #283346;
+}
+#documenter_content h2 {
+    font-weight: 600;
+    font-family: 'Open Sans', sans-serif;
+    line-height: 110%;
+    color: #283346;
+}
+#documenter_content h3 {
+    font-size: 26px;
+    font-weight: 600;
+    font-family: 'Open Sans', sans-serif;
+    line-height: 150%;
+    color: #283346;
+}
+#documenter_content h4 {
+    font-weight: 600;
+    font-family: 'Open Sans', sans-serif;
+    line-height: 150%;
+    color: #283346;
+}
+#documenter_content h5 {
+    font-weight: 600;
+    font-family: 'Open Sans', sans-serif;
+    line-height: 150%;
+    color: #283346;
+}
+.list_with_desc {
+    
+}
+#documenter_content ul li {
+    list-style: none;
+    font-family: 'Open Sans', sans-serif;
+    padding: 10px;
+    padding-left: 28px;
+    margin: 0;
+    position: relative;
+}
+#documenter_content ul li:after {
+    position: absolute;
+    content: '\f105';
+    top: 10px;
+    left: 10px;
+    color: #868ca7;
+    display: block;
+    font-family: FontAwesome;
+}
+#documenter_content .list_with_desc li {
+    list-style: none;
+    font-family: 'Open Sans', sans-serif;
+    padding: 10px;
+    padding-left: 18px;
+    margin: 0;
+}
+#documenter_content .list_with_desc li:after {
+    display: none;
+}
+#documenter_content .list_with_desc li:nth-child(2n+1) {
+    background: #EEF0F7;
+}
+.list_with_desc li {
+    position: relative;
+    overflow: hidden;
+}
+.list_with_desc li span {
+    float: left;
+    width: 220px;
+    color: #868ca7;
+}
+.list_with_desc.list_with_desc2 li {
+    padding-left: 240px !important;
+}
+.list_with_desc.list_with_desc2 li span {
+    float: none;
+    width: 220px;
+    color: #868ca7;
+    position: absolute;
+    top: 10px;
+    left: 18px;
+}
+ol.linenums {
+    margin: 0;
+}
