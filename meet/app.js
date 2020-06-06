@@ -101,10 +101,12 @@ function handle_html_response(response) {
     if (table_exists){
         removeAllChildNodes(table_dom)
     }
+    var table_div = extract_table(response);
     add_row_rollover(
         table_dom.appendChild(
-            extract_table(response)
+            table_div
         ));
+    $(table_div).hide().fadeIn(1000);
 }
 
 $.ajax(generateSettings()).done(handle_html_response);

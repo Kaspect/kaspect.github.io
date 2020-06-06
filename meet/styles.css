@@ -89,3 +89,28 @@ body {
     margin-top : 0;
     padding-bottom: 0px;
 }
+
+/*spinner*/
+.loader {
+    border: 16px solid #e2dede;
+    border-radius: 50%;
+    border-top: 16px solid var(--daycolor);
+    border-right: 16px solid var(--evecolor);
+    border-bottom: 16px solid var(--nightcolor);
+    width: 120px;
+    height: 120px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    -webkit-animation: spin 4s linear infinite;
+    animation: spin 3s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
