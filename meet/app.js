@@ -31,10 +31,10 @@ function extract_table(result) {
     extract_text_from_child_a(htmlDocument, "head");
 
     Array.from(htmlDocument.querySelectorAll("td:nth-child(1) > a")).map(function(x){
-        let newX = htmlDocument.createElement("span")
         $(x).replaceWith(x.innerText)
     });
-
+    //remove the last row that's empty
+    htmlDocument.querySelector("#tableContainer > div > table > tbody > tr:nth-child(26) > td").remove()
     return htmlDocument.querySelector("#Banner > div > div.div_row");
 }
 
@@ -55,8 +55,7 @@ function add_to_calendar(timeStampMoment, meeting_length_min=50) {
     timeStampMoment.add('minutes',meeting_length_min);
     const endTime = moment_to_gcal_format(timeStampMoment);
     const date_parameter = startTime + "/" + endTime;
-    const gcal_link = "http://www.google.com/calendar/event?action=TEMPLATE&dates=" + date_parameter + "&text=" + title;
-    location.replace(gcal_link)
+    window.location.href = "http://www.google.com/calendar/event?action=TEMPLATE&dates=" + date_parameter + "&text=" + title
 }
 
 function add_row_rollover(tableDom){
@@ -71,7 +70,7 @@ function add_row_rollover(tableDom){
         }
 
 
-            x.addEventListener('mousedown', e => {
+            x.addEventListener('mousedown', () => {
                 add_to_calendar(
                     date_parse_bcustom(date_text)
                 )
