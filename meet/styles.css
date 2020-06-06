@@ -15,7 +15,26 @@
         --daycolor: rgba(161, 229, 155, 0.45);
         --nightcolor: rgba(65, 56, 194, 0.29);
         --hovershade: rgba(255, 255, 255, 0.14);
-        --nighttext: #000;
+        --nighttext: #dcd7d7;
+    }
+    input[type="date"] {
+        background-color: #5d5d86;
+        outline: none;
+    }
+
+    input[type="date"]::-webkit-clear-button {
+        /*font-size: 18px;*/
+        /*height: 30px;*/
+        /*position: relative;*/
+    }
+
+    input[type="date"]::-webkit-inner-spin-button {
+        /*height: 28px;*/
+    }
+
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        font-size: 15px;
+        color: white !important;
     }
 }
 
