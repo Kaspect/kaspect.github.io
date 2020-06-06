@@ -29,18 +29,17 @@ function extract_table(result) {
     const htmlDocument = parser.parseFromString(result, "text/html");
     htmlDocument.querySelector("#Banner > div > div.div_row > div:nth-child(4)").remove()
     extract_text_from_child_a(htmlDocument, "head");
-
     Array.from(htmlDocument.querySelectorAll("td:nth-child(1) > a")).map(function(x){
         $(x).replaceWith(x.innerText)
     });
     //remove the last row that's empty
-    htmlDocument.querySelector("#tableContainer > div > table > tbody > tr:nth-child(26) > td").remove()
+    htmlDocument.querySelector("tr:nth-child(26) > td").remove()
     return htmlDocument.querySelector("#Banner > div > div.div_row");
 }
 
 //puts it in UTC format like 20200609T030600Z
-function moment_to_gcal_format(test1) {
-    const cal_flattened = test1.format("YYYYMMDD_HHmmss");
+function moment_to_gcal_format(moment_input) {
+    const cal_flattened = moment_input.format("YYYYMMDD_HHmmss");
     return cal_flattened.replace("_", "T") + "Z";
 }
 
@@ -55,7 +54,49 @@ function add_to_calendar(timeStampMoment, meeting_length_min=50) {
     timeStampMoment.add('minutes',meeting_length_min);
     const endTime = moment_to_gcal_format(timeStampMoment);
     const date_parameter = startTime + "/" + endTime;
-    window.location.href = "http://www.google.com/calendar/event?action=TEMPLATE&dates=" + date_parameter + "&text=" + title
+
+    var icsString = make_ics(startTime,endTime,"BRIANMEETS","OBJECTIVES:", targetplace="someplace")
+
+    // Create a binary representation of the plain-text input.
+    var blob = new Blob(
+        [ icsString ], // Blob parts.
+        {
+            type : "text/calendar;charset=utf-8"
+        }
+    );
+
+    downloadUrl = URL.createObjectURL( blob );
+    cal_container_existing = document.getElementById("cal_container");
+    if (cal_container_existing){
+        cal_container_existing.remove();
+    }
+        let cal_container = document.createElement("blockquote");
+        cal_container.id="cal_container";
+
+    let calendar_modal_title = document.createElement("p");
+    calendar_modal_title.innerText = "Invite:"
+    var myRandomColor = "#"+((1<<24)*Math.random()|0).toString(16);
+    calendar_modal_title.style.color = myRandomColor;
+    let ics_button_container = document.createElement("p");
+    let ics_a = document.createElement("a");
+    ics_a.innerText="Outlook / iCal";
+    ics_a.href = downloadUrl;
+    ics_button_container.className="icsButton";
+    ics_a.download = "meet.ics";
+    ics_button_container.appendChild(ics_a);
+
+    let gcal_button_container = document.createElement("p");
+    let gcal_a = document.createElement("a");
+    gcal_a.innerText="Google Cal";
+    gcal_button_container.className="gcalButton";
+    gcal_a.href = "http://www.google.com/calendar/event?action=TEMPLATE&dates=" + date_parameter + "&text=" + title;
+    gcal_button_container.appendChild(gcal_a);
+
+    cal_container.appendChild(calendar_modal_title);
+    cal_container.appendChild(gcal_button_container);
+    cal_container.appendChild(ics_button_container);
+    document.body.appendChild(cal_container);
+    window.scrollTo(0,document.body.scrollHeight);
 }
 
 function add_row_rollover(tableDom){
@@ -68,8 +109,6 @@ function add_row_rollover(tableDom){
         } else {
             date_text = dateVal.innerText
         }
-
-
             x.addEventListener('mousedown', () => {
                 add_to_calendar(
                     date_parse_bcustom(date_text)
@@ -79,6 +118,22 @@ function add_row_rollover(tableDom){
     return "len was " + rows.length.toString();
 }
 
+function make_ics(start,end,title="", description=""){
+    const carr = `\r`
+        const res = `BEGIN:VCALENDAR
+VERSION:2.0
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+SUMMARY:${title}
+DTSTART:${start}
+DTEND:${end}
+LOCATION:
+DESCRIPTION: ${description}
+END:VEVENT
+END:VCALENDAR`
+
+    return res;
+}
 
 function generateSettings()
 {
