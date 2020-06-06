@@ -1,7 +1,8 @@
 Sentry.init({ dsn: 'https://f2dbcb74963c44b18f93c1a02f374191@o395868.ingest.sentry.io/5266513' });
 let targetDate = "20200608";
 const prospective_date = moment().add("days", 1);
-document.getElementById("targetDate").value = prospective_date.format("YYYY-MM-DD");
+const date_element = document.querySelector("#targetDate");
+date_element.value = prospective_date.format("YYYY-MM-DD");
 targetDate = prospective_date.format("YYYYMMDD")
 
 function compose_timezone_url(targetDate) {
