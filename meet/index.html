@@ -5,25 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kaspect Meeting Planner</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
-    <link rel="stylesheet" href="https://fonts.xz.style/serve/inter.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css">
-    <script src="https://browser.sentry-cdn.com/5.16.1/bundle.min.js" integrity="sha384-XeIbINcUQP10HtmVHwZigannjNDpoQRe+uhAoW9J5HU5dHFpilP164LjqO78xtIB" crossorigin="anonymous">
-    </script>
+    <link rel="stylesheet" href="font/inter.css">
+    <link rel="stylesheet" href="new.min.css">
+
 
 </head>
 <body>
 <img src="kaspectmeetingplanner.jpg" width="400px" align="center">
 <form>
     <label for="targetDate">Date:</label>
-    <input type="date" id="targetDate" name="targetDate" onchange="updateTargetDate()">
+    <input type="date" id="targetDate" name="targetDate" style="background-color:#fff;" onchange="updateTargetDate()">
 <!--    <input type="submit">-->
 </form>
 <div id="tableContainer">
 </div>
-<footer><a href="https://kaspect.com">Kaspect</a> 2020</footer>
+<h6><a href="https://kaspect.com">Kaspect</a> 2020</h6>
 </body>
+
+<script src="https://browser.sentry-cdn.com/5.16.1/bundle.min.js" integrity="sha384-XeIbINcUQP10HtmVHwZigannjNDpoQRe+uhAoW9J5HU5dHFpilP164LjqO78xtIB" crossorigin="anonymous">
+</script>
 <script src="moment.js"></script>
 <script src="jquery-3.5.1.min.js"></script>
 <script src="date.format.js"></script>
 <script src="app.js"></script>
 </html>
+<!--Note: the website we collect time and data from has a license agreement here: kaspect.com/meet/time_and_temperature_license_agreement.pdf-->

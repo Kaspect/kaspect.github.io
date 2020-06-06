@@ -1,58 +1,54 @@
 @charset "utf-8";
 /* CSS Document */
+
+:root {
+    --evecolor: rgba(208, 96, 185, 0.4);
+    --daycolor: rgba(207, 248, 218, 0.51);
+    --nightcolor: rgba(21, 30, 158, 0.3);
+    --hovershade: rgba(32, 170, 194, 0.82);
+    --nighttext: #000;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --evecolor: rgba(24, 120, 86, 0.42);
+        --daycolor: rgba(161, 229, 155, 0.45);
+        --nightcolor: rgba(65, 56, 194, 0.29);
+        --hovershade: rgba(255, 255, 255, 0.14);
+        --nighttext: #000;
+    }
+}
+
 body {
-    background-color : white;
-    color : black;
-    margin-left : 0;
     max-width: 1200px !important;
-    margin-top : 0;
 }
-.time-table tr:hover {
-    color: #750893;
-    text-decoration: #717171 underline overline;
+
+.time-table tr:not(:first-child):hover {
+    background: none repeat scroll 0% 0% var(--hovershade);
     cursor: pointer;
+
     /*background: #002953;*/
-}
-body, html {
-    text-align : center;
-    background : #ffffff;
-    color : #000000;
-}
-#Main				{ margin:0px; padding:0px; width:100%; height:100%;}
-.selection			{ width:100%; height:auto; margin:0px auto; padding:0px auto;}
-.Clear				{ clear:both;}
-.container		{
-    margin : 0 auto;
-    padding-left: 4px;
-    width: 100%;
-    max-width: 980px;
-    margin:0 auto;
-    height: 100%;
-    text-align : center;
-    border : 0px solid black;
-    overflow:hidden
-}
-
-
-.eveningmeeting {
-    background: none repeat scroll 0% 0% #fff5c0;
-}
-.daymeeting {
-    background: none repeat scroll 0% 0% #c7f1a7;
 }
 
 .nightmeeting {
-    background: none repeat scroll 0% 0% #fcf9ff;
+    background: none repeat scroll 0% 0% var(--nightcolor);
+    color: var(--nighttext)
+}
+.eveningmeeting {
+    background: none repeat scroll 0% 0% var(--evecolor);
+}
+.daymeeting {
+    background: none repeat scroll 0% 0% var(--daycolor);
 }
 
-th {
-    background: none repeat scroll 0% 0% #F7F7F7;
-    border: 1px solid #FFFFFF;
-    font-weight: normal;
-    /*font-size: 12px;*/
-    padding: 12px 4px;
-    text-align: center;
-}
+/*th {*/
+/*    background: none repeat scroll 0% 0% #F7F7F7;*/
+/*    border: 1px solid #FFFFFF;*/
+/*    font-weight: normal;*/
+/*    !*font-size: 12px;*!*/
+/*    padding: 12px 4px;*/
+/*    text-align: center;*/
+/*}*/
 tbody {
     font-size:10px;
 }
@@ -62,16 +58,10 @@ tbody {
     }
 }
 .time-table {
-    color: black;
+    color: var(--nc-tx-1);
     font-weight: normal;
     text-decoration: none;
 }
-.time-table a {
-    color: black;
-    font-weight: normal;
-    text-decoration: none;
-}
-
 
 body {
     background-color : white;

@@ -2,19 +2,40 @@ Sentry.init({ dsn: 'https://f2dbcb74963c44b18f93c1a02f374191@o395868.ingest.sent
 var targetDate = "20200608"
 var prospective_date = moment().add("days",1)
 targetDate = prospective_date.format("YYYYMMDD")
+
+function compose_timezone_url(targetDate) {
+    return "https://www.timetemperature.com/time-tools/meeting-" + targetDate + "-us-california--us-texas-central--us-new+york--france--india--singapore-12.html";
+}
+
 function updateTargetDate(){
     console.log("chg");
 
     var inputval = document.getElementById("targetDate").value.replace("-","").replace("-","");
     targetDate = inputval;
-    timeanddate_url = "https://www.timetemperature.com/time-tools/meeting-"+targetDate+"-us-california--us-texas-central--us-new+york--france--india--singapore-12.html";
+    timeanddate_url = compose_timezone_url(targetDate);
     $.ajax(generateSettings()).done(handle_html_response);
 }
 var timeanddate_url = "https://www.timetemperature.com/time-tools/meeting-"+targetDate+"-us-california--us-texas-central--us-new+york--france--india--singapore-12.html";
+
+function extract_text_from_child_a(htmlDocument,target_element_class_name_that_has_a_link) {
+    var header_locations = htmlDocument.getElementsByClassName(target_element_class_name_that_has_a_link)
+    Array.from(header_locations).forEach(function (x) {
+        x.innerHTML = x.innerText //takes out the <a>
+    })
+}
+
+//cleans up DOM and extracts the table
 function extract_table(result) {
     const parser = new DOMParser();
     const htmlDocument = parser.parseFromString(result, "text/html");
     htmlDocument.querySelector("#Banner > div > div.div_row > div:nth-child(4)").remove()
+    extract_text_from_child_a(htmlDocument, "head");
+
+    Array.from(htmlDocument.querySelectorAll("td:nth-child(1) > a")).map(function(x){
+        var newX = htmlDocument.createElement("span")
+        $(x).replaceWith(x.innerText)
+    });
+
     const container = htmlDocument.querySelector("#Banner > div > div.div_row");
     return container;
 }
@@ -44,20 +65,21 @@ function add_to_calendar(timeStampMoment, meeting_length_min=50) {
 
 function add_row_rollover(tableDom){
     var rows = tableDom.querySelectorAll("tr")
-
     rows.forEach(x => {
-        var a_element = x.querySelector("a");
-        if(a_element!=null){
+        var dateVal = x.querySelector("td:nth-child(1)")
+        if (dateVal==null){
+            return
+        } else{
+            date_text = dateVal.innerText
+        }
 
-            var date_text = a_element.innerText;
+
             x.addEventListener('mousedown', e => {
                 add_to_calendar(
                     date_parse_bcustom(date_text)
-                );
+                )
             });
-            x.querySelector("a").removeAttribute("href")
-        }
-    })
+        });
     return "len was " + rows.length.toString();
 }
 
@@ -78,6 +100,7 @@ function removeAllChildNodes(parent) {
 }
 function handle_html_response(response) {
     table_dom = document.getElementById("tableContainer")
+
     var table_exists = table_dom.children.length>0;
     if (table_exists){
         removeAllChildNodes(table_dom)
