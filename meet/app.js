@@ -55,7 +55,7 @@ function add_to_calendar(timeStampMoment, meeting_length_min=50) {
     const endTime = moment_to_gcal_format(timeStampMoment);
     const date_parameter = startTime + "/" + endTime;
 
-    var icsString = make_ics(startTime,endTime,"BRIANMEETS","OBJECTIVES:", targetplace="someplace")
+    var icsString = make_ics(startTime,endTime,"Meeting: Kaspect","Objective:")
 
     // Create a binary representation of the plain-text input.
     var blob = new Blob(
@@ -139,6 +139,7 @@ function generateSettings()
 {
     return {
         "url": "https://cors-anywhere.herokuapp.com/" + timeanddate_url,
+        // "url":  timeanddate_url,
         "method": "GET",
         "timeout": 0,
     }
