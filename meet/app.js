@@ -77,7 +77,7 @@ function add_to_calendar(timeStampMoment, meeting_length_min=50) {
     calendar_modal_title.innerText = "Invite:"
     var myRandomColor = "#"+((1<<24)*Math.random()|0).toString(16);
     calendar_modal_title.style.color = myRandomColor;
-    let ics_button_container = document.createElement("p");
+    let ics_button_container = document.createElement("h6");
     let ics_a = document.createElement("a");
     ics_a.innerText="Outlook / iCal";
     ics_a.href = downloadUrl;
@@ -85,7 +85,7 @@ function add_to_calendar(timeStampMoment, meeting_length_min=50) {
     ics_a.download = "meet.ics";
     ics_button_container.appendChild(ics_a);
 
-    let gcal_button_container = document.createElement("p");
+    let gcal_button_container = document.createElement("h6");
     let gcal_a = document.createElement("a");
     gcal_a.innerText="Google Cal";
     gcal_button_container.className="gcalButton";
