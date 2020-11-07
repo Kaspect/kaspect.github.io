@@ -1,11 +1,3 @@
-Sentry.init({
-  dsn: 'https://f2dbcb74963c44b18f93c1a02f374191@o395868.ingest.sentry.io/5266513',
-  integrations: [
-    new Integrations.BrowserTracing(),
-  ],
-  tracesSampleRate: 1.0,
-});
-
 let targetDate = "20200608";
 const prospective_date = moment().add("days", 1);
 const date_element = document.querySelector("#targetDate");
