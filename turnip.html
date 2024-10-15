@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Progress Tracker</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/3.3.0/luxon.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #333;
+        }
+        .progress-container {
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            margin: 20px 0;
+            height: 30px;
+            position: relative;
+        }
+        .progress-bar {
+            background-color: #4CAF50;
+            height: 100%;
+            border-radius: 8px;
+            transition: width 0.5s ease-in-out;
+        }
+        .milestone {
+            position: absolute;
+            top: -20px;
+            transform: translateX(-50%);
+            font-size: 12px;
+            text-align: center;
+        }
+        .milestone::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 10px;
+            background-color: #333;
+        }
+        #currentDate, #daysPassed {
+            font-weight: bold;
+        }
+        #status {
+            margin-top: 20px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <h1>Project Progress Tracker</h1>
+    <p>Start Date: October 8, 2024 (Day 0)</p>
+    <p>Current Date: <span id="currentDate"></span></p>
+    <p>Days Passed: <span id="daysPassed"></span></p>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+        <div class="milestone" style="left: 8.16%;">Day 2</div>
+        <div class="milestone" style="left: 57.14%;">Day 14</div>
+        <div class="milestone" style="left: 100%;">Day 24.5</div>
+    </div>
+
+    <h2>Milestones:</h2>
+    <ol>
+        <li>Day 2: Initial Typeforms programmed and ready for review</li>
+        <li>Day 14: Coordinator intake link generator with SMS available</li>
+        <li>Day 24.5: Technical development completed, intake collection and bug-fixing phase begins</li>
+    </ol>
+
+    <div id="status"></div>
+
+    <script>
+        const DateTime = luxon.DateTime;
+        const startDate = DateTime.fromObject({ year: 2024, month: 10, day: 8 });
+        const milestones = [
+            { day: 2, description: "Initial Typeforms programmed and ready for review" },
+            { day: 14, description: "Coordinator intake link generator with SMS available" },
+            { day: 24.5, description: "Technical development completed, intake collection and bug-fixing phase begins" }
+        ];
+
+        function updateProgress() {
+            const now = DateTime.now();
+            const daysPassed = now.diff(startDate, 'days').days;
+            const progressPercentage = Math.min((daysPassed / 24.5) * 100, 100);
+
+            document.getElementById('currentDate').textContent = now.toFormat('MMMM d, yyyy');
+            document.getElementById('daysPassed').textContent = Math.floor(daysPassed);
+            document.getElementById('progressBar').style.width = `${progressPercentage}%`;
+
+            let status = "Current status: ";
+            if (daysPassed < 2) {
+                status += "Working on initial Typeforms";
+            } else if (daysPassed < 14) {
+                status += "Developing coordinator intake link generator";
+            } else if (daysPassed < 24.5) {
+                status += "Completing technical development";
+            } else {
+                status += "Intake collection and bug-fixing phase";
+            }
+
+            document.getElementById('status').textContent = status;
+        }
+
+        updateProgress();
+        setInterval(updateProgress, 60000); // Update every minute
+    </script>
+</body>
+</html>
