@@ -16,7 +16,7 @@
             padding: 20px;
             line-height: 1.6;
         }
-        h1 {
+        h1, h2, h3 {
             color: #333;
         }
         .progress-container {
@@ -36,8 +36,9 @@
             position: absolute;
             top: -20px;
             transform: translateX(-50%);
-            font-size: 12px;
+            font-size: 6px; /* Reduced by 50% from the original 12px */
             text-align: center;
+            white-space: nowrap;
         }
         .milestone::after {
             content: '';
@@ -45,7 +46,7 @@
             bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
-            width: 2px;
+            width: 1px;
             height: 10px;
             background-color: #333;
         }
@@ -60,37 +61,43 @@
 </head>
 <body>
     <h1>Project Progress Tracker</h1>
-    <p>Start Date: October 8, 2024 (Day 0)</p>
+    <p>Start Date: October 8, 2024 (Day 0) - Payment 1/2 Issued</p>
     <p>Current Date: <span id="currentDate"></span></p>
     <p>Days Passed: <span id="daysPassed"></span></p>
 
     <div class="progress-container">
         <div class="progress-bar" id="progressBar"></div>
-        <div class="milestone" style="left: 8.16%;">Day 2</div>
-        <div class="milestone" style="left: 57.14%;">Day 14</div>
-        <div class="milestone" style="left: 100%;">Day 24.5</div>
+        <div class="milestone" style="left: 2.22%;">Day 2</div>
+        <div class="milestone" style="left: 15.56%;">Day 14</div>
+        <div class="milestone" style="left: 22.22%;">Day 20</div>
+        <div class="milestone" style="left: 27.22%;">Day 24.5</div>
+        <div class="milestone" style="left: 100%;">Day 90</div>
     </div>
 
-    Here is the cleaned-up HTML version:
+    <h2>Milestones:</h2>
+    <ol>
+        <li>Day 2 (Oct 10, 2024): Initial Typeforms programmed and ready for review ✅
+            <ul>
+                <li>Blocker: Awaiting Spanish & Portuguese versions</li>
+                <li>Blocker: Awaiting Typeform feedback for English on Clinics A & B</li>
+            </ul>
+        </li>
+        <li>Day 14 (Oct 22, 2024): Coordinator intake link generator with SMS available
+            <ul>
+                <li>Blocker: Awaiting Twilio Business Verification</li>
+            </ul>
+        </li>
+        <li>Day 20 (Oct 28, 2024): Payment 2/2</li>
+        <li>Day 24.5 (Nov 1, 2024): Technical development completed, intake collection and bug-fixing phase begins</li>
+        <li>Day 90 (Jan 6, 2025): Monitoring and Intake Collection phase ends
+            <ul>
+                <li>Provide ongoing support, bug fixes, and monitoring for up to 90 days or until 500 patient intakes are completed, whichever comes first.</li>
+            </ul>
+        </li>
+    </ol>
 
-
-<h2>Milestones:</h2>
-<ol>
-    <li>Day 2: Initial Typeforms programmed and ready for review ✅
-        <ul>
-            <li>Blocker: Awaiting Spanish & Portuguese versions</li>
-            <li>Blocker: Awaiting Typeform feedback for English on Clinics A & B</li>
-        </ul>
-    </li>
-    <li>Day 14: Coordinator intake link generator with SMS available
-        <ul>
-            <li>Blocker: Awaiting Twilio Business Verification</li>
-        </ul>
-    </li>
-    <li>Day 24.5: Technical development completed, intake collection and bug-fixing phase begins</li>
-</ol>
-
-<p><h3>Project Resources</h3><a href="https://drive.google.com/drive/u/0/folders/1muqb_Ur5V_15YFKlfzFsnCanjJfHtc7l">Shared Google Drive Link</a></p>
+    <h3>Project Resources</h3>
+    <p><a href="https://drive.google.com/drive/u/0/folders/1muqb_Ur5V_15YFKlfzFsnCanjJfHtc7l">Shared Google Drive Link</a></p>
     <div id="status"></div>
 
     <script>
@@ -99,13 +106,15 @@
         const milestones = [
             { day: 2, description: "Initial Typeforms programmed and ready for review" },
             { day: 14, description: "Coordinator intake link generator with SMS available" },
-            { day: 24.5, description: "Technical development completed, intake collection and bug-fixing phase begins" }
+            { day: 20, description: "Payment 2/2" },
+            { day: 24.5, description: "Technical development completed, intake collection and bug-fixing phase begins" },
+            { day: 90, description: "Monitoring and Intake Collection phase ends" }
         ];
 
         function updateProgress() {
             const now = DateTime.now();
             const daysPassed = now.diff(startDate, 'days').days;
-            const progressPercentage = Math.min((daysPassed / 24.5) * 100, 100);
+            const progressPercentage = Math.min((daysPassed / 90) * 100, 100);
 
             document.getElementById('currentDate').textContent = now.toFormat('MMMM d, yyyy');
             document.getElementById('daysPassed').textContent = Math.floor(daysPassed);
@@ -118,8 +127,10 @@
                 status += "Developing coordinator intake link generator";
             } else if (daysPassed < 24.5) {
                 status += "Completing technical development";
+            } else if (daysPassed < 90) {
+                status += "Monitoring and Intake Collection phase";
             } else {
-                status += "Intake collection and bug-fixing phase";
+                status += "Project completed";
             }
 
             document.getElementById('status').textContent = status;
